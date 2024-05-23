@@ -62,6 +62,9 @@ left_shift_region = False       # Just created an image by holding left SHIFT an
 current_cmds_length = 0         # When start holding left SHIFT or CTRL we record the length of the commands list to be able to later remove the motion commands
 center_of_image = [0,0]
 image_cnt = 1                   # The name of an image stored while holding LEFT SHIFT
+fname = ""                      # The actual file name of an image stored while holding LEFT SHIFT
+coordinates = None              # The coordinates of this image on the screen.
+start_snapping = False          # After releasing the left shift the mouse will move to the click point. Then the underlaying screen might change, so we will take a snapshot with the same name each motion event until we receive a button press.
 precision = 6
 step_size = 15                  # the number of events that are always skipped between two mouseMove commands
 modifiers = {"button 1 down": False, "button 2 down": False, "button 3 down": False, "button 4 down": False, 
@@ -184,6 +187,7 @@ def handle_mouse_buttons(time, press, buttonno, x, y):
     global left_shift_region
     global modifiers
     global cmds
+    global start_snapping
     
     sp = [time, press, buttonno, x, y]
     mouse_movements.append([time, x, y])
@@ -224,6 +228,10 @@ def handle_mouse_buttons(time, press, buttonno, x, y):
     elif press == "Press":
         # Only create a mouseDown if it is not a mouse wheel action. # TODO: check this for windows.
         if not buttonno in [4, 5]:
+            if buttonno == 1:
+                print("Turn off snapping")
+                # We are done hysterically saving the background image we are clicking on (or next to)
+                start_snapping = False
             modifiers["button " + str(buttonno) + "down"] = True
             if not left_shift_region:
                 cmds.append("hover(Location(%d, %d))"%(x,y))
@@ -238,8 +246,16 @@ def handle_mouse_buttons(time, press, buttonno, x, y):
 def handle_mouse_motion(time, x, y):
     global mouse_moved
     global previous_event
+    global coordinates
+    global fname
+    global start_snapping
+
     sp = [time, x, y]
     mouse_movements.append(sp) 
+    if start_snapping and (x - coordinates[0])%20 > 15:
+        # (x - coordinates[0])%20 > 15 is not exactly fail proof, but it ensures that not every miniature movement results in saving a screenshot and thus increasing the event queue because the program can't keep up.
+        screenshot = ImageGrab.grab(coordinates)
+        screenshot.save(fname, format="png")     
 
     # We only store a list of motion events for later processing.
     motions.append(sp)
@@ -257,6 +273,9 @@ def handle_keys(time, press, char, x, y):
     global image_cnt
     global cmds
     global current_cmds_length
+    global coordinates
+    global fname
+    global start_snapping    
     sp = [time, press, char, x, y]
     mouse_movements.append([time, x, y])
 
@@ -310,6 +329,8 @@ def handle_keys(time, press, char, x, y):
                             tmp = y
                             y = old_y
                             old_y = tmp
+                        coordinates = bbox=(old_x, old_y, x, y)
+                        start_snapping = True
                         screenshot = ImageGrab.grab(bbox=(old_x, old_y, x, y))
                         screenshot.save(fname, format="png")
                         left_shift_region = True
