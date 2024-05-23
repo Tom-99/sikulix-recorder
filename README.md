@@ -5,7 +5,7 @@ A commandline recorder for Sikulix
 
 Sikulix ([http://sikulix.com/](http://sikulix.com/)) automates anything you see on the screen of your desktop computer running Windows, Mac or some Linux/Unix. It uses image recognition powered by OpenCV to identify GUI components. This is handy in cases when there is no easy access to a GUI's internals or the source code of the application or web page you want to act on.
 
-But you have to code what you want in Sikulix. The coding is easy, but still... I decided to put some code together to see if I could make a simple recorder that monitors the mouse and keyboard and converts it to code that can be played back with Sikulix. This recorder is still very basic and not very well tested, but I decided to share it anyway in the hope it would be useful to someone. So drop me a line if you use it.
+But you have to code what you want in Sikulix. The coding is easy, but still... I decided to put some code together to see if I could make a simple recorder that monitors the mouse and keyboard and converts it to code that can be played back with Sikulix. This recorder is still very basic and not very well tested, but I decided to share it anyway in the hope it would be useful to someone. So drop me a line in the Discussions if you use it.
 
 ## Installing
 This is a command line Python program. So you will need Python ([www.python.org](www.python.org)) and some Python modules.
