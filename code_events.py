@@ -252,7 +252,7 @@ def handle_mouse_motion(time, x, y):
 
     sp = [time, x, y]
     mouse_movements.append(sp) 
-    if start_snapping and (x - coordinates[0])%20 > 15:
+    if start_snapping and ((x - coordinates[0])%20 > 15 or (y - coordinates[1])%20 > 15):
         # (x - coordinates[0])%20 > 15 is not exactly fail proof, but it ensures that not every miniature movement results in saving a screenshot and thus increasing the event queue because the program can't keep up.
         screenshot = ImageGrab.grab(coordinates)
         screenshot.save(fname, format="png")     
