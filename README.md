@@ -22,7 +22,7 @@ This program should work on Windows, Linux, and possibly MacOS (I don't have acc
 Open a command line, go to the folder of sikulix-recorder and run:
 `python sikulix_recorder.py <name>`
 
-A folder named <name>.sikulix will be created to store the Sikulix script and any captured images. Play back the script with Sikulix to automatically repeat all keys  pressed and mouse button/movements that were recorded.
+A folder named *<name>.sikulix* will be created to store the Sikulix script and any captured images. Play back the script with Sikulix to automatically repeat all keys  pressed and mouse button/movements that were recorded.
 
 To capture an image, move the mouse to the top left corner, and press and hold the left shift button. Then move the mouse to the bottom right corner of the image and release shift. Now left click on the spot you want Silulix to click on (or beside) the image.
 
