@@ -34,8 +34,11 @@ If you don't need this functionality you can comment out the following lines in 
 
 
 
+
 To see all available options, enter:
 `python sikulix_recorder.py --help`
+
+
 
 Kind regards,
 
