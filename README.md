@@ -26,7 +26,7 @@ A folder named <name>.sikulix will be created to store the Sikulix script and an
 
 To capture an image, move the mouse to the top left corner, and press and hold the left shift button. Then move the mouse to the bottom right corner of the image and release shift. Now left click on the spot you want Silulix to click on (or beside) the image.
 
-If you don't need this functionality you can comment out the following lines in code_events.py to eliminate the need of Python's pillow module:
+If you don't need this functionality you can comment out the following lines in *code_events.py* to eliminate the need of Python's pillow module:
 
 `screenshot = ImageGrab.grab(bbox=(old_x, old_y, x, y))`
 
