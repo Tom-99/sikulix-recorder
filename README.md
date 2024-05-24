@@ -29,9 +29,11 @@ To capture an image, move the mouse to the top left corner, and press and hold t
 (If you don't need this functionality you can comment out the lines:
 
 `screenshot = ImageGrab.grab(bbox=(old_x, old_y, x, y))
+
 screenshot.save(fname, format="png")`
 
 in code_events.py. This eliminates the need for Python's pillow module.)
+
 
 To see all available options, enter:
 `python sikulix_recorder.py --help`
